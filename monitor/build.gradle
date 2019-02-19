@@ -1,0 +1,38 @@
+apply plugin: 'java'
+
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.19.RELEASE'
+	}
+}
+
+group = 'dolphin.spider'
+version = '0.0.1-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.5'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+
+project(':web') {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    description = 'credit-system-webservice'
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter')
+        compile('org.springframework.boot:spring-boot-starter-cache')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile("org.projectlombok:lombok:1.16.10")
+    }
+}
