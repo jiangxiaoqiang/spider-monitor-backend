@@ -30,6 +30,32 @@ project(':web') {
     apply plugin: 'org.springframework.boot'
     description = 'credit-system-webservice'
     dependencies {
+        compile project(':service')
+        compile('org.springframework.boot:spring-boot-starter')
+        compile('org.springframework.boot:spring-boot-starter-cache')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile("org.projectlombok:lombok:1.16.10")
+    }
+}
+
+project(':service') {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    description = 'credit-system-webservice'
+    dependencies {
+        compile project(':data')
+        compile('org.springframework.boot:spring-boot-starter')
+        compile('org.springframework.boot:spring-boot-starter-cache')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile("org.projectlombok:lombok:1.16.10")
+    }
+}
+
+project(':data') {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    description = 'credit-system-webservice'
+    dependencies {
         compile('org.springframework.boot:spring-boot-starter')
         compile('org.springframework.boot:spring-boot-starter-cache')
         compile('org.springframework.boot:spring-boot-starter-web')
