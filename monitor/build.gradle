@@ -2,6 +2,10 @@ apply plugin: 'java'
 
 
 buildscript {
+    ext {
+        springfoxVersion = '2.6.1'
+    }
+
 	repositories {
 		mavenCentral()
 	}
@@ -31,10 +35,17 @@ project(':web') {
     description = 'credit-system-webservice'
     dependencies {
         compile project(':service')
+        compile project(':dolphin-common')
         compile('org.springframework.boot:spring-boot-starter')
         compile('org.springframework.boot:spring-boot-starter-cache')
         compile('org.springframework.boot:spring-boot-starter-web')
         compile("org.projectlombok:lombok:1.16.10")
+        compile("com.zaxxer:HikariCP:2.6.0")
+        compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+        compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.0'
+        compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.20'
+        compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.1.0.RELEASE', ext: 'pom'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
     }
 }
 
@@ -56,9 +67,27 @@ project(':data') {
     apply plugin: 'org.springframework.boot'
     description = 'credit-system-webservice'
     dependencies {
+        compile project(':dolphin-common')
         compile('org.springframework.boot:spring-boot-starter')
         compile('org.springframework.boot:spring-boot-starter-cache')
         compile('org.springframework.boot:spring-boot-starter-web')
         compile("org.projectlombok:lombok:1.16.10")
+        compile group: 'postgresql', name: 'postgresql', version: '9.1-901.jdbc4'
+    }
+}
+
+
+project(':dolphin-common') {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    description = 'credit-system-webservice'
+    dependencies {
+        compile("org.projectlombok:lombok:1.16.10")
+        compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+        compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
+        compile group: 'org.mybatis', name: 'mybatis', version: '3.4.4'
+        compile group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
+
     }
 }
