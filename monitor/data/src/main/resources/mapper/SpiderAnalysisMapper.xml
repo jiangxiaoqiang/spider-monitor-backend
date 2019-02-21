@@ -3,7 +3,7 @@
 
 <mapper namespace="mapper.SpiderAnalysisMapper">
     <resultMap id="spiderAnalysis" type="model.SpiderAnalysis">
-        <result column="total_elements" property="bookTotalElements"/>
+        <result column="book_total_elements" property="bookTotalElements"/>
         <result column="analysis_timestamp" property="analysisTimestamp"/>
     </resultMap>
 
