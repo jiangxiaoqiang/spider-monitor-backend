@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.SpiderAnalysisMapper">
-    <resultMap id="spiderAnalysis" type="model.SpiderAnalysis">
-        <result column="book_total_elements" property="bookTotalElements"/>
+<mapper namespace="mapper.SpiderUrlsAnalysisMapper">
+    <resultMap id="spiderUrlsAnalysis" type="model.SpiderUrlsAnalysis">
+        <result column="book_total_elements" property="spiderName"/>
+        <result column="spider_urls_count" property="spiderUrlsCount"/>
+        <result column="success_count" property="successCount"/>
+        <result column="failed_count" property="failedCount"/>
+        <result column="unfinished_count" property="unfinishedCount"/>
+        <result column="total_urls_count" property="totalUrlsCount"/>
         <result column="analysis_timestamp" property="analysisTimestamp"/>
     </resultMap>
 
-    <select id="getAllCount" resultType="java.lang.String">
-        SELECT count(*)
-        FROM spider_analysis_peroid
-    </select>
-
     <select id="findList" parameterType="map" resultMap="spiderAnalysis">
         SELECT *
-        FROM spider_analysis_peroid
+        FROM spider_urls_analysis_peroid
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="startTime!=null">
                 AND analysis_timestamp >= #{startTime}
@@ -27,7 +27,7 @@
 
     <select id="findPage" parameterType="model.Pageable" resultMap="spiderAnalysis">
         SELECT *
-        FROM spider_analysis_peroid
+        FROM spider_urls_analysis_peroid
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="params.analysisTimestamp!=null">
                 AND analysis_timestamp >= #{params.startTime}
@@ -37,14 +37,4 @@
             </if>
         </trim>
     </select>
-
-    <insert id="create" parameterType="model.SpiderAnalysis">
-        INSERT INTO spider_analysis_peroid (
-        book_total_elements,
-        analysis_timestamp
-        ) VALUES (
-        #{bookTotalElements},
-        #{analysisTimestamp}
-        )
-    </insert>
 </mapper>
