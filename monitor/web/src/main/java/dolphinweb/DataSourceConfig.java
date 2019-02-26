@@ -37,6 +37,7 @@ public class DataSourceConfig {
         hikariConfig.setJdbcUrl(jdbcUrl);
         hikariConfig.setUsername(username);
         hikariConfig.setPassword(password);
+        hikariConfig.addDataSourceProperty("autoReconnect",true);
         hikariConfig.setConnectionTestQuery("select 1");
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
         return dataSource;

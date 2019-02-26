@@ -1,16 +1,11 @@
 package service;
 
-import exception.DolphinValidateException;
-import exception.StandardErrorInfo;
 import mapper.AuthorMapper;
-import mapper.PublisherMapper;
 import model.Author;
-import model.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author jiangtingqiang@gmail.com
