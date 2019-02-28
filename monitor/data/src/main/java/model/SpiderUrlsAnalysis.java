@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class SpiderUrlsAnalysis {
 
-    private Integer spiderName;
+    private String spiderName;
 
     private Integer spiderUrlsCount;
 

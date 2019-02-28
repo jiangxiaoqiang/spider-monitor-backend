@@ -162,11 +162,9 @@ project(":data") {
     dependencies {
         compile project(':dolphin-mybatis')
         compile project(':common')
-        compile("org.projectlombok:lombok:1.16.14")
+        compile("org.projectlombok:lombok:${lombokVersion}")
         compile("com.zaxxer:HikariCP:2.6.0")
         compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-        //compile group: 'postgresql', name: 'postgresql', version: '9.1-901.jdbc4'
-        //compile("postgresql:postgresql:9.3-1100-jdbc41")
         compile("org.hibernate:hibernate-validator:5.2.4.Final")
         compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
         compile("org.apache.commons:commons-lang3:3.5")
