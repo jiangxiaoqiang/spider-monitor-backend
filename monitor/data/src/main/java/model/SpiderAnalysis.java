@@ -11,4 +11,10 @@ public class SpiderAnalysis {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime analysisTimestamp;
+
+    private Integer todayElements;
+
+    private Integer todayScrapyUrlsCount;
+
+    private Integer readyUrlsCount;
 }

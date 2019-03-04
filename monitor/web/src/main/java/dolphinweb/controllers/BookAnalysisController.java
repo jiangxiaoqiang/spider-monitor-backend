@@ -27,9 +27,9 @@ public class BookAnalysisController {
     @GetMapping(path = "list")
     @CrossOrigin
     @ApiOperation(value = "", notes = "")
-    public ApiResult getAnalysisList() throws Exception {
+    public ApiResult getAnalysisList(){
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("startTime", LocalDateTime.now().minusMonths(3));
+        paramMap.put("startTime", LocalDateTime.now().minusDays(3));
         paramMap.put("endTime", LocalDateTime.now());
         List<SpiderAnalysis> analysisResult = spiderAnalysisService.findList(paramMap);
         ApiResult result =new ApiResult(analysisResult);
