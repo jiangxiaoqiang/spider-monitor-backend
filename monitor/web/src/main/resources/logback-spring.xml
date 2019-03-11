@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback-demo</contextName>
+    <property name="SPIDER_MONITOR_LOG_PATH" value="log/"/>
+    <property name="SPIDER_MONITOR_LOG_FILE" value="spider-monitor-web"/>
+    <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${SPIDER_MONITOR_LOG_PATH}/${SPIDER_MONITOR_LOG_FILE}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${SPIDER_MONITOR_LOG_PATH}/${SPIDER_MONITOR_LOG_FILE}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d [%thread] %-5level %logger{36} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="fileInfoLog"/>
+    </root>
+</configuration>
