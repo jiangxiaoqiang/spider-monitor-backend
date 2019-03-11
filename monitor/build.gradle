@@ -19,9 +19,6 @@ buildscript {
     }
 
     dependencies {
-        /**
-         * 从buildscript的repositories中获取jar包
-         */
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 
     }
