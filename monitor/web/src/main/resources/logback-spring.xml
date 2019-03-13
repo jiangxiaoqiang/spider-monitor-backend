@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <contextName>logback-demo</contextName>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <property name="SPIDER_MONITOR_LOG_PATH" value="log/"/>
     <property name="SPIDER_MONITOR_LOG_FILE" value="spider-monitor-web"/>
     <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
