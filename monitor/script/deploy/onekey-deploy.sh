@@ -8,20 +8,26 @@ set -u
 # 也可以使用命令 set -o errexit
 set -e
 
+set -x
+
 PROGRAM_NAME="dolphin-web"
-APP_PATH="/home/dolphin/app/backend/spider-monitor-backend"
+APP_PATH="/home/dolphin/app/backend/spider-monitor-backend/monitor"
 
 ps -ef|grep -w ${PROGRAM_NAME}|grep -v grep|cut -c 9-15|xargs kill 9
 cp /var/lib/jenkins/workspace/spider-monitor-backend/monitor/version.properties ${APP_PATH}
 
 # Read program version number
-source ${PROGRAM_DEVELOP_PATH_BACKEND}/version.properties
+if [[ -f "${APP_PATH}/version.properties" ]];then
+    source ${APP_PATH}/version.properties
+else
+    echo "File not exits!"
+fi
 
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
 
 count=`ps -ef | grep ${PROGRAM_NAME} | grep -v "grep" | wc -l`
 if [[ ${count} -lt 1 ]]; then
-	nohup ${JAVA_HOME}/bin/java -Xmx8192M -Xms4096M -jar -Xdebug -Xrunjdwp:transport=dt_socket,suspend=n,server=y,address=5005 ${APP_PATH}/${APP_FULL_NAME}.jar --spring.config.location=${APP_PATH}/application.properties>/dev/null &
+	nohup ${JAVA_HOME}/bin/java -Xmx298M -Xms296M -jar -Xdebug -Xrunjdwp:transport=dt_socket,suspend=n,server=y,address=5005 ${APP_PATH}/${APP_FULL_NAME} --spring.config.location=${APP_PATH}/application.properties>/dev/null &
 else
 	echo "not start app, process aready exists!"
 fi
