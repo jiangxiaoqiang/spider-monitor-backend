@@ -25,7 +25,7 @@ public class SpiderUrlsPoolController {
     @Autowired
     private SpiderUrlsPoolService spiderUrlsPoolService;
 
-    @GetMapping(path = "readyToScrapy")
+    @GetMapping(path = "readyToScrapyCount")
     @CrossOrigin
     @ApiOperation(value = "", notes = "")
     public ApiResult getAnalysisList(){
