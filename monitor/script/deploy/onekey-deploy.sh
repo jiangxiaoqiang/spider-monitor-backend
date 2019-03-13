@@ -11,10 +11,18 @@ set -e
 set -x
 
 PROGRAM_NAME="dolphin-web"
-APP_PATH="/home/dolphin/app/backend/spider-monitor-backend/monitor"
+APP_PATH="/home/dolphin/app/backend/spider-monitor-backend"
+BUILD_PATH="/var/lib/jenkins/workspace/spider-monitor-backend/monitor"
 
-ps -ef|grep -w ${PROGRAM_NAME}|grep -v grep|cut -c 9-15|xargs kill 9
-cp /var/lib/jenkins/workspace/spider-monitor-backend/monitor/version.properties ${APP_PATH}
+
+PID=`ps -ef|grep -w ${PROGRAM_NAME}|grep -v grep|cut -c 9-15`
+if [[ ${PID} -gt 1 ]]; then
+        kill -15 ${PID}
+else
+        echo "Process not found,exit..."
+fi
+
+cp ${BUILD_PATH}/version.properties ${APP_PATH}
 
 # Read program version number
 if [[ -f "${APP_PATH}/version.properties" ]];then
@@ -24,6 +32,7 @@ else
 fi
 
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
+cp ${BUILD_PATH}/web/build/libs/${APP_FULL_NAME} ${APP_PATH}
 
 count=`ps -ef | grep ${PROGRAM_NAME} | grep -v "grep" | wc -l`
 if [[ ${count} -lt 1 ]]; then
