@@ -1,5 +1,8 @@
+
+
 group 'dolphin'
 version '1.0-SNAPSHOT'
+
 
 buildscript {
     ext {
@@ -39,12 +42,13 @@ repositories {
     mavenCentral()
 }
 
-/***
- * 所有子项目的通用配置
- */
+
+
 allprojects {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
     repositories {
         mavenCentral()
     }
@@ -104,15 +108,17 @@ project(":composite") {
     }
 }
 
+
 project(":web") {
 
     description = "web"
 
     jar {
         baseName = "dolphin-web-" + getVersionCode()
-    }
-
-    task copyfile() {
+        // Will include every single one of your dependencies, project or not
+        from {
+            configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        }
     }
 
     dependencies {
