@@ -14,29 +14,9 @@ PROGRAM_NAME="dolphin-web"
 APP_PATH="/home/dolphin/app/backend/spider-monitor-backend"
 BUILD_PATH="/var/lib/jenkins/workspace/spider-monitor-backend/monitor"
 
-
-PID=`ps -ef|grep -w ${PROGRAM_NAME}|grep -v grep|cut -c 9-15`
-if [[ ${PID} -gt 1 ]]; then
-        kill -15 ${PID}
-else
-        echo "Process not found,exit..."
-fi
-
-cp ${BUILD_PATH}/version.properties ${APP_PATH}
-
-# Read program version number
-if [[ -f "${APP_PATH}/version.properties" ]];then
-    source ${APP_PATH}/version.properties
-else
-    echo "File not exits!"
-fi
-
+scp ${BUILD_PATH}/script/deploy/upgrade-app/sh root@spider-monitor-app-server:${APP_PATH}
+scp ${BUILD_PATH}/version.properties root@spider-monitor-app-server:${APP_PATH}
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
-cp ${BUILD_PATH}/web/build/libs/${APP_FULL_NAME} ${APP_PATH}
+scp ${BUILD_PATH}/web/build/libs/${APP_FULL_NAME} root@spider-monitor-app-server:${APP_PATH}
 
-count=`ps -ef | grep ${PROGRAM_NAME} | grep -v "grep" | wc -l`
-if [[ ${count} -lt 1 ]]; then
-	nohup ${JAVA_HOME}/bin/java -Xmx298M -Xms296M -jar -Xdebug -Xrunjdwp:transport=dt_socket,suspend=n,server=y,address=5005 ${APP_PATH}/${APP_FULL_NAME} --spring.config.location=${APP_PATH}/application.properties>/dev/null &
-else
-	echo "not start app, process already exists!"
-fi
+ansible spider-monitor-app-server -m command -a "chdir=${APP_PATH} bash ./upgrade-app.sh"
