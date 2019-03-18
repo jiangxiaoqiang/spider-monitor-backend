@@ -14,7 +14,7 @@ PROGRAM_NAME="dolphin-web"
 APP_PATH="/home/dolphin/app/backend/spider-monitor-backend"
 BUILD_PATH="/var/jenkins_home/workspace/spider-monitor-backend/monitor"
 
-scp ${BUILD_PATH}/script/deploy/upgrade-app/sh root@spider-monitor-app-server:${APP_PATH}
+scp ${BUILD_PATH}/script/deploy/upgrade-app.sh root@spider-monitor-app-server:${APP_PATH}
 scp ${BUILD_PATH}/version.properties root@spider-monitor-app-server:${APP_PATH}
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
 scp ${BUILD_PATH}/web/build/libs/${APP_FULL_NAME} root@spider-monitor-app-server:${APP_PATH}
