@@ -80,9 +80,9 @@ project(":composite") {
     description = 'dolphin-composite'
 
     dependencies {
-        compile project(":business")
-        compile project(":data")
-        compile("org.springframework:spring-context:" + springVersion)
+        api project(":business")
+        api project(":data")
+        implementation("org.springframework:spring-context:" + springVersion)
     }
 }
 
@@ -99,11 +99,11 @@ project(":web") {
     }
 
     dependencies {
-        implementation project(':business')
-        implementation project(':api')
-        implementation project(':common')
-        implementation project(':data')
-        implementation project(':composite')
+        api project(':business')
+        api project(':api')
+        api project(':common')
+        api project(':data')
+        api project(':composite')
         implementation("com.zaxxer:HikariCP:2.6.0")
         implementation("org.mybatis:mybatis-spring:1.3.0")
         implementation("mysql:mysql-connector-java:5.1.24")
@@ -126,9 +126,9 @@ project(":business") {
     description = "business"
 
     dependencies {
-        compile project(':data')
-        compile project(':common')
-        compile('org.springframework.boot:spring-boot-starter-web')
+        api project(':data')
+        api project(':common')
+        implementation('org.springframework.boot:spring-boot-starter-web')
     }
 }
 
@@ -145,7 +145,7 @@ project(":data") {
         implementation("org.hibernate:hibernate-validator:5.2.4.Final")
         implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
         implementation("org.apache.commons:commons-lang3:3.5")
-        compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
+        api group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
         implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
         implementation group: 'org.mybatis', name: 'mybatis', version: '3.4.2'
         implementation group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'

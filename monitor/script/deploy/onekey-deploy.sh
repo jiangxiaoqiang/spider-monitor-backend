@@ -22,6 +22,8 @@ fi
 
 scp ${BUILD_PATH}/script/deploy/upgrade-app.sh root@spider-monitor-app-server:${APP_PATH}
 scp ${BUILD_PATH}/version.properties root@spider-monitor-app-server:${APP_PATH}
+scp ${BUILD_PATH}/script/config/production/application.properties root@spider-monitor-app-server:${APP_PATH}
+
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
 scp ${BUILD_PATH}/web/build/libs/${APP_FULL_NAME} root@spider-monitor-app-server:${APP_PATH}
 
