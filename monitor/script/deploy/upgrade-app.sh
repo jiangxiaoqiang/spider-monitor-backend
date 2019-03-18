@@ -16,6 +16,7 @@ set -x
 
 PROGRAM_NAME="dolphin-web"
 APP_PATH="/home/dolphin/app/backend/spider-monitor-backend"
+JAVA_HOME="/home/dolphin/app/third-party/java/jdk1.8.0_121"
 export TOP_PID=$$
 trap 'exit 1' TERM
 
