@@ -17,11 +17,14 @@ buildscript {
         jcenter{
             url 'http://jcenter.bintray.com'
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-
+        classpath "io.freefair.gradle:lombok-plugin:3.1.4"
     }
 }
 
@@ -50,13 +53,6 @@ allprojects {
         mavenCentral()
     }
 }
-
-
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.7'
-}
-
 
 project(":common") {
     description = ''

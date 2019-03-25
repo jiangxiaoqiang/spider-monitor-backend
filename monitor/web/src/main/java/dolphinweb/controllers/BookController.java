@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import service.BookService;
 import model.Book;
-//import service.ScalaBookService;
-import sun.rmi.runtime.Log;
 import java.util.List;
 
 /**
