@@ -1,6 +1,7 @@
 group 'dolphin'
 version '1.0-SNAPSHOT'
 
+
 buildscript {
     ext {
         springBootVersion = '2.1.3.RELEASE'
@@ -9,7 +10,7 @@ buildscript {
         jacksonVersion = '2.8.7'
         lombokVersion = '1.16.14'
     }
-    ext['tomcat.version'] = '8.0.35'
+    ext['tomcat.version'] = '9.0.16'
 
     repositories {
         mavenCentral()
@@ -39,12 +40,12 @@ repositories {
     mavenCentral()
 }
 
-/***
- * 所有子项目的通用配置
- */
 allprojects {
     apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
     repositories {
         mavenCentral()
     }
@@ -52,7 +53,7 @@ allprojects {
 
 task wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.0'
+    gradleVersion = '4.7'
 }
 
 
@@ -60,70 +61,55 @@ project(":common") {
     description = ''
 
     dependencies {
-        compile("org.springframework:spring-context:" + springVersion)
-        compile("commons-codec:commons-codec:1.10")
-        compile("org.apache.tomcat:tomcat-juli:" + property('tomcat.version'))
-        compile 'org.springframework.boot:spring-boot-starter-web'
-        compile("io.springfox:springfox-swagger2:${springfoxVersion}")
-        compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.20'
-        compile("org.projectlombok:lombok:${lombokVersion}")
-        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
-        compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
-        compile group: 'org.mybatis', name: 'mybatis', version: '3.4.4'
-        compile group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
+        api("org.springframework:spring-context:" + springVersion)
+        api("commons-codec:commons-codec:1.10")
+        api("org.apache.tomcat:tomcat-juli:" + property('tomcat.version'))
+        api 'org.springframework.boot:spring-boot-starter-web'
+        api group: 'io.swagger', name: 'swagger-annotations', version: '1.5.20'
+        api("org.projectlombok:lombok:${lombokVersion}")
+        api group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+        api group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
+        api group: 'org.mybatis', name: 'mybatis', version: '3.4.4'
+        api group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
     }
 }
-
-/*project(":api") {
-
-    description = 'dolphin-api'
-
-    dependencies {
-        compile project(":business")
-        compile project(":data")
-        compile project(":composite")
-        compile project(":common")
-        compile group: 'org.apache.tomcat', name: 'tomcat-juli', version: property('tomcat.version')
-        compile("org.projectlombok:lombok:1.16.10")
-        compile("org.springframework.boot:spring-boot-devtools")
-        compile("org.springframework:spring-test:" + springVersion)
-        compile("org.springframework.boot:spring-boot-test:" + springBootVersion)
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-    }
-}*/
 
 project(":composite") {
 
     description = 'dolphin-composite'
 
     dependencies {
-        compile project(":business")
-        compile project(":data")
-        compile("org.springframework:spring-context:" + springVersion)
+        api project(":business")
+        api project(":data")
+        implementation("org.springframework:spring-context:" + springVersion)
     }
 }
 
-project(":web") {
 
+project(":web") {
     description = "web"
+    archivesBaseName = "dolphin-web-" + getVersionCode()
 
     jar {
-        baseName = "dolphin-web-" + getVersionCode()
-    }
-
-    task copyfile() {
+        // Will include every single one of your dependencies, project or not
+        from {
+            configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        }
     }
 
     dependencies {
-        implementation project(':business')
-        implementation project(':api')
-        implementation project(':common')
-        implementation project(':data')
-        implementation project(':composite')
+        api project(':business')
+        api project(':api')
+        api project(':common')
+        api project(':data')
+        api project(':composite')
         implementation("com.zaxxer:HikariCP:2.6.0")
+        api("org.mybatis:mybatis-spring:1.3.0")
         implementation("mysql:mysql-connector-java:5.1.24")
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("org.springframework.boot:spring-boot-starter")
+        implementation("io.springfox:springfox-swagger2:2.9.2")
+        implementation("io.springfox:springfox-swagger-ui:2.9.2")
         implementation group: 'org.apache.tomcat', name: 'tomcat-juli', version: property('tomcat.version')
         implementation("org.projectlombok:lombok:1.16.14")
         implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
@@ -139,9 +125,9 @@ project(":business") {
     description = "business"
 
     dependencies {
-        compile project(':data')
-        compile project(':common')
-        compile('org.springframework.boot:spring-boot-starter-web')
+        api project(':data')
+        api project(':common')
+        implementation('org.springframework.boot:spring-boot-starter-web')
     }
 }
 
@@ -150,19 +136,20 @@ project(":data") {
     description = "data"
 
     dependencies {
-        compile project(':dolphin-mybatis')
-        compile project(':common')
-        compile("org.projectlombok:lombok:${lombokVersion}")
-        compile("com.zaxxer:HikariCP:2.6.0")
-        compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-        compile("org.hibernate:hibernate-validator:5.2.4.Final")
-        compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
-        compile("org.apache.commons:commons-lang3:3.5")
-        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
-        compile group: 'org.mybatis', name: 'mybatis', version: '3.4.2'
-        compile group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
+        api project(':dolphin-mybatis')
+        api project(':common')
+        api("org.projectlombok:lombok:${lombokVersion}")
+        implementation("com.zaxxer:HikariCP:2.6.0")
+        implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+        api("org.hibernate:hibernate-validator:5.2.4.Final")
+        api("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
+        api("org.apache.commons:commons-lang3:3.5")
+        api group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
+        api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
+        api group: 'org.mybatis', name: 'mybatis', version: '3.4.2'
+        api group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
         testCompile group: 'junit', name: 'junit', version: '4.11'
-        compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+        api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
     }
 }

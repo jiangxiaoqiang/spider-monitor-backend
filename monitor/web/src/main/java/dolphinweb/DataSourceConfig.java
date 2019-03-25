@@ -44,7 +44,6 @@ public class DataSourceConfig {
     }
 
     @Bean
-    @Primary
     public JdbcTemplate primaryJdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
