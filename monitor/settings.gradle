@@ -1,9 +1,8 @@
-rootProject.name = 'dolphin-api'
-include 'business'
+rootProject.name = 'monitor'
+include 'monitor-business'
 include 'api'
 include 'data'
 include 'common'
 include 'web'
-include 'dolphin-mybatis'
 include('composite')
 
