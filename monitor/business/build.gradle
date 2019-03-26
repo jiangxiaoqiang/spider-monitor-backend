@@ -18,4 +18,5 @@ repositories {
 dependencies {
     api project(':data')
     api project(':common')
+    api("net.sf.ehcache:ehcache:2.10.2")
 }

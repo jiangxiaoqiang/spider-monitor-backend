@@ -20,7 +20,7 @@ public class SpiderUrlsPoolController {
 
     @GetMapping(path = "readyToScrapyCount")
     @CrossOrigin
-    @ApiOperation(value = "", notes = "")
+    @ApiOperation(value = "", notes = "实时待爬取URL数量")
     public ApiResult getAnalysisList(){
         Integer readyToScrapyCount = spiderUrlsPoolService.getReadyScrapyCount();
         ApiResult result =new ApiResult(readyToScrapyCount);
