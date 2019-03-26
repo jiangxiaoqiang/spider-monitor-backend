@@ -11,7 +11,6 @@ import service.UserService;
 import utils.CustomWebUtils;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 /**

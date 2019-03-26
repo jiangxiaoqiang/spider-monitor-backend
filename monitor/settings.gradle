@@ -1,8 +1,8 @@
 rootProject.name = 'monitor'
-include 'monitor-business'
-include 'api'
-include 'data'
-include 'common'
+include 'core'
 include 'web'
-include('composite')
+include 'common'
+include 'data'
+include 'composite'
+include 'business'
 

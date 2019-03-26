@@ -2,7 +2,6 @@ package dolphinweb.controllers;
 
 import model.ResponseCode;
 import model.RestApiResponse;
-import model.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

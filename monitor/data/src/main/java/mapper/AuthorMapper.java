@@ -1,7 +1,6 @@
 package mapper;
 
 import model.Author;
-import model.User;
 
 /**
  * @author jiangtingqiang@gmail.com

@@ -2,7 +2,6 @@ package model;
 
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
