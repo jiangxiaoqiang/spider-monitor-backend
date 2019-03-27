@@ -30,6 +30,7 @@ build/
 classes/
 app.pid
 nohup.out
+out
 
 *.iml
 
