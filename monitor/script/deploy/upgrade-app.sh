@@ -35,6 +35,8 @@ else
     kill -s TERM ${TOP_PID}
 fi
 
+sleep 5s
+
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
 
 count=`ps -ef | grep ${PROGRAM_NAME} | grep -v "grep" | wc -l`

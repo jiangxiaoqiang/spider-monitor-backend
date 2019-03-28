@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 
-
 /**
  * Created by dolphin on 23/6/2017.
  */
@@ -30,4 +29,10 @@ public class DolphinApplication {
         app.addListeners(new ApplicationPidFileWriter("app.pid"));
         app.run(args);
     }
+}
+
+
+class Person{
+    String name;
+    Integer age;
 }
