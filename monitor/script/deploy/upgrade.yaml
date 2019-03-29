@@ -1,12 +1,12 @@
 - hosts: spider-monitor-app-server
   remote_user: root
   tasks:
-  - name: start agent
-    shell: "/bin/bash /home/dolphin/app/backend/spider-monitor-backend/upgrade-app.sh >> a.log"
-    async: 100
+  - name: upgrade or update server app
+    shell: "/bin/bash /home/dolphin/app/backend/spider-monitor-backend/upgrade-app.sh >> /dev/null"
+    async: 60
     poll: 20
-    register: copy_configuer_log
+    register: copy_execution_log
     tags:
       - start_agent
   - name: show execute result
-    debug: var=copy_configuer_log
+    debug: var=copy_execution_log
