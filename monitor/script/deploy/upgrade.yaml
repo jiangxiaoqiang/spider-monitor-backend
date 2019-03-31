@@ -4,7 +4,7 @@
   - name: upgrade or update server app
     shell: "/bin/bash /home/dolphin/app/backend/spider-monitor-backend/upgrade-app.sh >> /dev/null"
     async: 60
-    poll: 20
+    poll: 10
     register: copy_execution_log
     tags:
       - start_agent

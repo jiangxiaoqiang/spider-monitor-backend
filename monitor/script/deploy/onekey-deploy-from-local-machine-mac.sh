@@ -11,9 +11,9 @@ set -e
 set -x
 
 PROGRAM_NAME="dolphin-web"
-APP_PATH="/home/hldev/jiangxiaoqiang/spider-monitor-backend/monitor"
+APP_PATH="/Users/dolphin/source/spider-monitor-backend/monitor"
 REMOTE_APP_PATH="/home/dolphin/app/backend/spider-monitor-backend/"
-BUILD_PATH="/home/hldev/jiangxiaoqiang/spider-monitor-backend/monitor/web/build/libs"
+BUILD_PATH="/Users/dolphin/source/spider-monitor-backend/monitor/web/build/libs"
 
 # Why should run clean task?
 # https://stackoverflow.com/questions/29028748/why-run-gradle-clean
@@ -33,10 +33,4 @@ scp ${APP_PATH}/script/config/production/application.properties root@spider-moni
 APP_FULL_NAME="dolphin-web-${VERSION}.jar"
 scp ${APP_PATH}/web/build/libs/${APP_FULL_NAME} root@spider-monitor-app-server:${REMOTE_APP_PATH}
 
-#ansible spider-monitor-app-server -m command -a "chdir=${REMOTE_APP_PATH} bash ./upgrade-app.sh >> /dev/null &"
-
 ansible-playbook ${APP_PATH}/script/deploy/upgrade.yaml
-
-#ansible-playbook /home/hldev/jiangxiaoqiang/spider-monitor-backend/monitor/script/deploy/upgrade.yaml
-
-
