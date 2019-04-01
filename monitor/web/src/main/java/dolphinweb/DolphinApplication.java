@@ -8,6 +8,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Created by dolphin on 23/6/2017.
  */
@@ -25,14 +30,11 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class DolphinApplication {
     public static void main(String[] args) throws Exception {
+
+        List<String> string = new ArrayList();
         SpringApplication app = new SpringApplication(DolphinApplication.class);
         app.addListeners(new ApplicationPidFileWriter("app.pid"));
         app.run(args);
+
     }
-}
-
-
-class Person{
-    String name;
-    Integer age;
 }
