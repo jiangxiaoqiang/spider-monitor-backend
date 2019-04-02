@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.SpiderUrlsPoolMapper">
+    <resultMap id="spiderUrlsPool" type="model.SpiderUrlsAnalysis">
+        <result column="book_total_elements" property="bookTotalElements"/>
+    </resultMap>
+
+    <select id="getReadyScrapyCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM spider_urls_pool
+        where spider_name = 'google-book-spider'
+        and scrapy_status =0
+    </select>
+</mapper>

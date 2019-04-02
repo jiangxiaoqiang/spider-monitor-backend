@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.SpiderAnalysisMapper">
+    <resultMap id="spiderAnalysis" type="model.SpiderAnalysis">
+        <result column="book_total_elements" property="bookTotalElements"/>
+        <result column="analysis_timestamp" property="analysisTimestamp"/>
+        <result column="today_elements" property="todayElements"/>
+        <result column="today_scrapy_urls_count" property="todayScrapyUrlsCount"/>
+        <result column="ready_urls_count" property="readyUrlsCount"/>
+    </resultMap>
+
+    <select id="getAllCount" resultType="java.lang.String">
+        SELECT count(*)
+        FROM spider_analysis_peroid
+    </select>
+
+    <select id="findList" parameterType="map" resultMap="spiderAnalysis">
+        SELECT *
+        FROM spider_analysis_peroid
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="startTime!=null">
+                AND analysis_timestamp >= #{startTime}
+            </if>
+            <if test="endTime!=null">
+                AND analysis_timestamp  <![CDATA[ <= ]]> #{endTime}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findPage" parameterType="model.Pageable" resultMap="spiderAnalysis">
+        SELECT *
+        FROM spider_analysis_peroid
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="params.analysisTimestamp!=null">
+                AND analysis_timestamp >= #{params.startTime}
+            </if>
+            <if test="params.analysisTimestamp!=null">
+                AND analysis_timestamp  <![CDATA[ <= ]]> #{params.endTime}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="create" parameterType="model.SpiderAnalysis">
+        INSERT INTO spider_analysis_peroid (
+        book_total_elements,
+        analysis_timestamp
+        ) VALUES (
+        #{bookTotalElements},
+        #{analysisTimestamp}
+        )
+    </insert>
+</mapper>

@@ -34,8 +34,6 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
-
-
 repositories {
     mavenCentral()
 }
@@ -54,7 +52,6 @@ allprojects {
         testCompile group: 'junit', name: 'junit', version: '4.12'
     }
 }
-
 
 dependencies {
     api("org.projectlombok:lombok:${lombokVersion}")
