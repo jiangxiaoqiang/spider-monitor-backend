@@ -10,7 +10,7 @@ set -e
 
 set -x
 
-
+APP_PATH="/Users/dolphin/source/spider-monitor-backend/monitor"
 
 # Why should run clean task?
 # https://stackoverflow.com/questions/29028748/why-run-gradle-clean
