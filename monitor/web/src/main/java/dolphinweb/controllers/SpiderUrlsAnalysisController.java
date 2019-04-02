@@ -26,10 +26,10 @@ public class SpiderUrlsAnalysisController {
 
     @GetMapping(path = "list")
     @CrossOrigin
-    @ApiOperation(value = "", notes = "")
-    public ApiResult getAnalysisList() throws Exception {
+    @ApiOperation(value = "", notes = "获取URL统计信息列表（每小时统计一次），获取前一天范围统计信息")
+    public ApiResult getAnalysisList() {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("startTime", LocalDateTime.now().minusMonths(3));
+        paramMap.put("startTime", LocalDateTime.now().minusHours(6));
         paramMap.put("endTime", LocalDateTime.now());
         List<SpiderUrlsAnalysis> analysisResult = spiderUrlsAnalysisService.findList(paramMap);
         ApiResult result =new ApiResult(analysisResult);
