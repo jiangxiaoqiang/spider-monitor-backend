@@ -15,6 +15,8 @@ public interface BookMapper {
 
     List<Book> getBooksByName(String name);
 
+    List<Book> getBooksByNameFullTextSearch(String name);
+
     List<Book> getBooksByIds(String ids);
 
     List<Book> getBooksByIdList(List<Long> ids);

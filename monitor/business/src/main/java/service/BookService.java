@@ -74,4 +74,8 @@ public class BookService {
     public List<Book> getBooksByIds(String ids) {
         return getBooksByIds(ids);
     }
+
+    public List<Book> getBooksByNameFullTextSearch(String name) {
+        return bookMapper.getBooksByNameFullTextSearch(name);
+    }
 }
