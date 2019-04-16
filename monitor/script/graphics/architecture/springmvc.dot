@@ -1,0 +1,15 @@
+digraph G {
+    splines="FALSE";
+
+    /* Entities */
+    //request [label="request", shape="|square,rectangle,circle,ellipse,triangle,plaintext,point,diamond,pentagon,hexagon,septagon,octagon,egg,trapezium,parallelogram,house,doublecircle,doubleoctagon,tripleoctagon,invtriangle,invtrapezium,invhouse,Mdiamond,Msquare,Mcircle,none,note,tab,folder,box3d|", URL="http://en.wikipedia.org/wiki/John de Fries"]
+    
+    /* Relationships */
+    "用户":sw -> "DispatchServlet":nw[label="请求(1)"]
+    "DispatchServlet":ne -> "用户":se[label="响应"]
+    "DispatchServlet" -> "HandlerMapping"[label="获取(2)"]
+    "HandlerMapping" -> "DispatchServlet"[label="生成处理器对象(3)"]
+    "DispatchServlet" -> "HandlerAdapter"
+    "HandlerAdapter" -> "Controller"
+    "DispatchServlet" -> "ViewResolver"
+}

@@ -82,7 +82,7 @@ project(":composite") {
     dependencies {
         api project(":business")
         api project(":data")
-        implementation("org.springframework:spring-context:" + springVersion)
+        api("org.springframework:spring-context:" + springVersion)
     }
 }
 
