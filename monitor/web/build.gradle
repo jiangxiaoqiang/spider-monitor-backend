@@ -1,0 +1,76 @@
+
+buildscript {
+    ext['tomcat.version'] = '9.0.16'
+}
+
+plugins {
+    id 'java'
+    id 'java-library'
+    id "org.springframework.boot" version "2.1.3.RELEASE"
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+}
+
+group 'dolphin'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+def getVersionCode() {
+    def versionFile = file("$rootDir/version.properties")
+    if (!versionFile.canRead()) {
+        throw new GradleException("Could not find version.properties!")
+    }
+    def versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionFile))
+    def versionCode = versionProps['VERSION'].toString()
+    return versionCode
+}
+
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+    }
+}
+
+archivesBaseName = "dolphin-web-" + getVersionCode()
+
+jar {
+    // Will include every single one of your dependencies, project or not
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    api project(':business')
+    api project(':common')
+    api project(':data')
+    api project(':composite')
+    implementation("com.zaxxer:HikariCP:2.6.0")
+    api("org.mybatis:mybatis-spring:1.3.0")
+    implementation("mysql:mysql-connector-java:5.1.24")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.1.3.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter:2.1.3.RELEASE")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation group: 'org.apache.tomcat', name: 'tomcat-juli', version: property('tomcat.version')
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
+    implementation group: 'org.mybatis', name: 'mybatis', version: '3.4.2'
+    implementation group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
+    implementation group: 'junit', name: 'junit', version: '4.12'
+}

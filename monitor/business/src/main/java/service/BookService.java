@@ -7,13 +7,11 @@ import mapper.ShelfMapper;
 import model.Book;
 import model.Shelf;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -75,5 +73,9 @@ public class BookService {
 
     public List<Book> getBooksByIds(String ids) {
         return getBooksByIds(ids);
+    }
+
+    public List<Book> getBooksByNameFullTextSearch(String name) {
+        return bookMapper.getBooksByNameFullTextSearch(name);
     }
 }

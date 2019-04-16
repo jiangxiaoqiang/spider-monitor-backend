@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.BookMapper">
+    <resultMap id="Book" type="model.Book">
+        <result column="name" property="name"/>
+        <result column="isbn" property="isbn"/>
+        <result column="id" property="id"/>
+        <result column="publisher" property="publisher"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+    <select id="getBookByISBN" parameterType="String" resultMap="Book">
+        SELECT *
+        FROM book
+        where TRIM(isbn) = #{isbn}
+    </select>
+
+    <select id="getBookById" parameterType="Long" resultMap="Book">
+        SELECT *
+        FROM book
+        where id = #{id}
+    </select>
+
+    <select id="getBooksByName" parameterType="String" resultMap="Book">
+        SELECT *
+        FROM book
+        where name like CONCAT('%', #{name}, '%')
+    </select>
+
+    <select id="getBooksByIds" parameterType="String" resultMap="Book">
+        SELECT *
+        FROM book
+        where ID in CONCAT('%', #{ids}, '%')
+    </select>
+
+    <select id="getBooksByIdList" parameterType="String" resultMap="Book">
+        SELECT *
+        FROM book
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="list != null">
+                AND ID IN
+                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+    </select>
+
+    <insert id="createBook" parameterType="model.Book">
+        INSERT INTO book(
+        id,
+        name,
+        isbn,
+        price,
+        publisher,
+        author)
+        VALUES(
+        #{id},
+        #{name},
+        #{isbn},
+        #{price},
+        #{publisher},
+        #{author})
+    </insert>
+</mapper>

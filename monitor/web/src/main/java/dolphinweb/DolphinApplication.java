@@ -8,8 +8,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by dolphin on 23/6/2017.
@@ -28,14 +31,18 @@ import java.util.ArrayList;
 @SpringBootApplication
 public class DolphinApplication {
     public static void main(String[] args) throws Exception {
-        ArrayList<Integer> list1 = new ArrayList<>();
-        ArrayList<String> list2 = new ArrayList<>();
+        SpringApplication app = new SpringApplication(DolphinApplication.class);
+        app.addListeners(new ApplicationPidFileWriter("app.pid"));
+        app.run(args);
 
-        System.out.print(list1.getClass());
+        List<String> string = new ArrayList();
+        SpringApplication app = new SpringApplication(DolphinApplication.class);
+        app.addListeners(new ApplicationPidFileWriter("app.pid"));
+        app.run(args);
 
-        System.out.print(list1.getClass() == list2.getClass());
-        //SpringApplication app = new SpringApplication(DolphinApplication.class);
-        //app.addListeners(new ApplicationPidFileWriter("app.pid"));
-        //app.run(args);
+
+
+
+
     }
 }

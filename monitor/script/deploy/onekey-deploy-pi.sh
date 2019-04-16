@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-#
-# 发布程序到生产环境
-# 一键部署后端项目到远程1台或多台服务器
-# 发布流程为：编译构建-打包-发布包-拷贝包到指定目录-解压包
-# 注：本机需要安装Ansible并与服务器做免密登录
-#
-# 2017-05-25 dolphin 增加动态读取版本号，根据版本自动发布程序
-#
-
 # 当使用未初始化的变量时，程序自动退出
 set -u
 
@@ -25,7 +16,7 @@ readonly LOGIN_USER="root"
 readonly LOCAL_PATH="./web/build/libs"
 
 # Read program version number
-source ./version.properties
+source ../../version.properties
 
 PROGRAM_NAME="dolphin-web.jar"
 echo "$PROGRAM_NAME"

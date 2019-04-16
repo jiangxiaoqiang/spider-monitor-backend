@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import model.ApiResult;
 import model.SpiderAnalysis;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,12 @@ public class BookAnalysisController {
     @GetMapping(path = "list")
     @CrossOrigin
     @ApiOperation(value = "", notes = "")
-    public ApiResult getAnalysisList(){
+    public ApiResult getAnalysisList(String startTime, String endTime) {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("startTime", LocalDateTime.now().minusDays(3));
-        paramMap.put("endTime", LocalDateTime.now());
+        paramMap.put("startTime", StringUtils.isNoneBlank(startTime) ? startTime : LocalDateTime.now().minusHours(16));
+        paramMap.put("endTime", StringUtils.isNoneBlank(endTime) ? endTime : LocalDateTime.now());
         List<SpiderAnalysis> analysisResult = spiderAnalysisService.findList(paramMap);
-        ApiResult result =new ApiResult(analysisResult);
+        ApiResult result = new ApiResult(analysisResult);
         return result;
     }
 }

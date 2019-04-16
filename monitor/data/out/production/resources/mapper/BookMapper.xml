@@ -28,6 +28,12 @@
         where name like CONCAT('%', #{name}, '%')
     </select>
 
+    <select id="getBooksByNameFullTextSearch" parameterType="String" resultMap="Book">
+        SELECT *
+        FROM book
+        where to_tsvector(name) @@ plainto_tsquery(#{name})
+    </select>
+
     <select id="getBooksByIds" parameterType="String" resultMap="Book">
         SELECT *
         FROM book

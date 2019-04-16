@@ -1,15 +1,10 @@
 package combine;
 
 import mapper.UserMapper;
-import model.Book;
-import model.Shelf;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import security.PasswordOperation;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class UserComposite {

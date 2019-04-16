@@ -9,6 +9,7 @@ buildscript {
         springfoxVersion = '2.6.1'
         jacksonVersion = '2.8.7'
         lombokVersion = '1.16.14'
+        lombokVersion = '1.18.2'
     }
     ext['tomcat.version'] = '9.0.16'
 
@@ -17,11 +18,16 @@ buildscript {
         jcenter{
             url 'http://jcenter.bintray.com'
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 
+        //classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        //classpath "io.freefair.gradle:lombok-plugin:3.1.4"
     }
 }
 
@@ -34,13 +40,22 @@ def getVersionCode() {
     versionProps.load(new FileInputStream(versionFile))
     def versionCode = versionProps['VERSION'].toString()
     return versionCode
+plugins {
+    id 'java'
+    id 'java-library'
 }
+
+group 'dolphin'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
 allprojects {
+
     apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
@@ -61,6 +76,7 @@ task wrapper(type: Wrapper) {
 project(":common") {
     description = ''
 
+    
     dependencies {
         api("org.springframework:spring-context:" + springVersion)
         api("commons-codec:commons-codec:1.10")
@@ -82,7 +98,7 @@ project(":composite") {
     dependencies {
         api project(":business")
         api project(":data")
-        api("org.springframework:spring-context:" + springVersion)
+        implementation("org.springframework:spring-context:" + springVersion)
     }
 }
 
@@ -117,6 +133,55 @@ project(":web") {
         implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
         implementation group: 'org.mybatis', name: 'mybatis', version: '3.4.2'
         implementation group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         testCompile group: 'junit', name: 'junit', version: '4.12'
     }
 }
@@ -130,6 +195,13 @@ project(":business") {
         api project(':common')
         implementation('org.springframework.boot:spring-boot-starter-web')
     }
+dependencies {
+    api("org.projectlombok:lombok:${lombokVersion}")
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 project(":data") {
